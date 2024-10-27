@@ -1,0 +1,20 @@
+{
+  "name": "iuul-residence",
+  "version": "1.0.0",
+  "description": "Contains all challenges from iUUL residence process",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "questao1": "node 1st_challenge/questao1.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.1",
+    "prompt-sync": "^4.2.0"
+  }
+}
