@@ -8,7 +8,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "questao1": "node 1st_challenge/questao1.js"
+    "questao1": "node 1st_challenge/questao1.js",
+    "questao2": "node 2nd_challenge/questao2.js"
   },
   "keywords": [],
   "author": "",
