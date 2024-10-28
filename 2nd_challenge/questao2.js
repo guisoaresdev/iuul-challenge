@@ -89,7 +89,11 @@ class Triangulo {
     const b = v2.calcularDistancia(v3);
     const c = v3.calcularDistancia(v1);
     const s = (a + b + c) / 2;
-    return Math.sqrt(s * (s - a) * (s - b) * (s - c));
+    console.log(`Lados: a = ${a}, b = ${b}, c = ${c}`);
+    console.log(`Semiperímetro (s) = ${s}`);
+    const area = Math.sqrt(s * (s - a) * (s - b) * (s - c));
+    console.log(`Área calculada: ${area}`);
+    return isNaN(area) ? 0 : parseFloat(area.toFixed(2));
   }
 }
 
@@ -106,7 +110,11 @@ function main() {
     console.log("4. Verificar igualdade entre dois vértices");
     console.log("5. Criar um triângulo");
     console.log("6. Verificar igualdade entre dois triângulos");
-    console.log("7. Sair");
+    console.log("7. Calcular perímetro de um triângulo");
+    console.log("8. Determinar o tipo de um triângulo");
+    console.log("9. Clonar um triângulo");
+    console.log("10. Calcular área de um triângulo");
+    console.log("11. Sair");
     const opcao = parseInt(prompt("Opção -> "), 10);
 
     switch (opcao) {
@@ -275,8 +283,49 @@ function main() {
           console.log("Um ou ambos os índices são inválidos.");
         }
         break;
+      case 7: // Perímetro
+        const indicePerimetro = parseInt(prompt("Índice do triângulo -> "), 10);
+        if (triangulos[indicePerimetro]) {
+          console.log(
+            `Perímetro do triângulo: ${triangulos[indicePerimetro].perimetro}`,
+          );
+        } else {
+          console.log("Triângulo não encontrado.");
+        }
+        break;
 
-      case 7:
+      case 8: // Tipo
+        const indiceTipo = parseInt(prompt("Índice do triângulo -> "), 10);
+        if (triangulos[indiceTipo]) {
+          console.log(`Tipo do triângulo: ${triangulos[indiceTipo].tipo()}`);
+        } else {
+          console.log("Triângulo não encontrado.");
+        }
+        break;
+
+      case 9: // Clonar
+        const indiceClone = parseInt(prompt("Índice do triângulo -> "), 10);
+        if (triangulos[indiceClone]) {
+          const clone = triangulos[indiceClone].clone();
+          triangulos.push(clone);
+          console.log("Triângulo clonado e adicionado à lista.");
+        } else {
+          console.log("Triângulo não encontrado.");
+        }
+        break;
+
+      case 10: // Área
+        const indiceArea = parseInt(prompt("Índice do triângulo -> "), 10);
+        if (triangulos[indiceArea]) {
+          console.log(
+            `Área do triângulo: ${triangulos[indiceArea].area.toFixed(2)}`,
+          );
+        } else {
+          console.log("Triângulo não encontrado.");
+        }
+        break;
+
+      case 11:
         console.log("Saindo...");
         return;
 
