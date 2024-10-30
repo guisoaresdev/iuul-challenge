@@ -11,7 +11,8 @@
     "questao1": "node 1st_challenge/questao1.js",
     "questao2": "node 2nd_challenge/questao2.js",
     "questao3": "ts-node 3rd_challenge/questao3.ts",
-    "questao4": "node 4th_challenge/questao4.js"
+    "questao4": "node 4th_challenge/questao4.js",
+    "questao5": "ts-node 5th_challenge/questao5.ts"
   },
   "keywords": [],
   "author": "",
