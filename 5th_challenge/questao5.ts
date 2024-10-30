@@ -1,4 +1,6 @@
-const promptzim = require("prompt-sync")();
+import promptSync from "prompt-sync";
+const prompt = promptSync();
+
 class Pessoa {
   private nome!: string;
   private cpf!: number;
@@ -19,39 +21,69 @@ class Pessoa {
   private capturarNome(): void {
     let nome: string;
     do {
-      nome = promptzim("Insira o nome (pelo menos 5 caracteres):") as string;
-      if (nome.length >= 5) {
-        this.nome = nome;
-        break;
+      nome = prompt("Insira o nome (pelo menos 5 caracteres): ") as string;
+      if (nome !== null) {
+        if (nome.length >= 5) {
+          this.nome = nome;
+          break;
+        }
       }
-      console.log("Nome inválido! Tente novamente.");
+      throw new Error("Nome inválido! Tente novamente.");
     } while (true);
   }
 
   private capturarCPF(): void {
     let cpf: string;
     do {
-      cpf = promptzim("Insira o CPF (11 dígitos):") as string;
+      cpf = prompt(
+        "Insira o CPF (11 digitos ou 14 dígitos com pontuação): ",
+      ) as string;
       if (/^\d{11}$/.test(cpf)) {
         this.cpf = parseInt(cpf);
         break;
+      } else if (/^\d{3}\.\d{3}\.\d{3}-\d{2}$/.test(cpf)) {
+        this.cpf = parseInt(cpf.replace(/\D/g, ""));
+        break;
       }
-      console.log("CPF inválido! Tente novamente.");
+      throw new Error(
+        "CPF Inválido! CPF deve conter exatos 11 dígitos ou 14 com pontuação correta.",
+      );
     } while (true);
   }
 
   private capturarDataNascimento(): void {
     let data: string;
     do {
-      data = promptzim("Insira a data de nascimento (DD/MM/AAAA):") as string;
-      const [dia, mes, ano] = data.split("/").map(Number);
+      data = prompt(
+        "Insira a data de nascimento (DD/MM/AAAA, DD-MM-AAAA ou DDMMYYYY): ",
+      ) as string;
+
+      const regex = /^(?:(\d{2})[\/-]?(\d{2})[\/-]?(\d{4})|\d{8})$/;
+
+      if (!regex.test(data)) {
+        throw new Error("Data de nascimento inválida! Tente novamente.");
+      }
+
+      let dia: number, mes: number, ano: number;
+
+      if (data.length === 8) {
+        dia = Number(data.slice(0, 2));
+        mes = Number(data.slice(2, 4));
+        ano = Number(data.slice(4, 8));
+      } else {
+        const partes = data.split(/[/\-]/).map(Number);
+        [dia, mes, ano] = partes;
+      }
+
       const dataNasc = new Date(ano, mes - 1, dia);
       const idade = new Date().getFullYear() - dataNasc.getFullYear();
+
       if (!isNaN(dataNasc.getTime()) && idade >= 18) {
         this.data_nascimento = dataNasc;
         break;
       }
-      console.log(
+
+      throw new Error(
         "Data de nascimento inválida ou menor de 18 anos! Tente novamente.",
       );
     } while (true);
@@ -60,13 +92,13 @@ class Pessoa {
   private capturarRendaMensal(): void {
     let renda: string;
     do {
-      renda = promptzim("Insira a renda mensal (≥ 0):") as string;
+      renda = prompt("Insira a renda mensal (≥ 0): R$ ") as string;
       const valor = parseFloat(renda.replace(",", "."));
       if (valor >= 0) {
         this.renda_mensal = parseFloat(valor.toFixed(2));
         break;
       }
-      console.log("Renda inválida! Tente novamente.");
+      throw new Error("Renda inválida! Tente novamente.");
     } while (true);
   }
 
@@ -74,20 +106,20 @@ class Pessoa {
     let estado: string;
     const estadosValidos = ["C", "S", "V", "D"];
     do {
-      estado = promptzim("Insira o estado civil (C, S, V, D):") as string;
+      estado = prompt("Insira o estado civil (C, S, V, D): ") as string;
       if (estadosValidos.includes(estado.toUpperCase())) {
         this.estado_civil = estado.toUpperCase();
         break;
       }
-      console.log("Estado civil inválido! Tente novamente.");
+      throw new Error("Estado civil inválido! Tente novamente.");
     } while (true);
   }
 
   private capturarDependentes(): void {
     let dependentes: string;
     do {
-      dependentes = promptzim(
-        "Insira o número de dependentes (0 a 10):",
+      dependentes = prompt(
+        "Insira o número de dependentes (0 a 10): ",
       ) as string;
       const numDependentes = parseInt(dependentes);
       if (
@@ -98,7 +130,7 @@ class Pessoa {
         this.dependentes = numDependentes;
         break;
       }
-      console.log("Número de dependentes inválido! Tente novamente.");
+      throw new Error("Número de dependentes inválido! Tente novamente.");
     } while (true);
   }
 
@@ -128,7 +160,7 @@ function menu() {
     console.log("2. Exibir dados");
     console.log("0. Sair");
 
-    opcao = parseInt(promptzim("Escolha uma opção:") as string);
+    opcao = parseInt(prompt("Escolha uma opção: ") as string);
 
     switch (opcao) {
       case 1:

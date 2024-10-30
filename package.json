@@ -1,6 +1,7 @@
 {
   "name": "iuul-residence",
   "version": "1.0.0",
+  "type": "module",
   "description": "Contains all challenges from iUUL residence process",
   "main": "index.js",
   "directories": {
@@ -10,9 +11,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "questao1": "node 1st_challenge/questao1.js",
     "questao2": "node 2nd_challenge/questao2.js",
-    "questao3": "ts-node 3rd_challenge/questao3.ts",
+    "questao3": "npx tsx 3rd_challenge/questao3.ts",
     "questao4": "node 4th_challenge/questao4.js",
-    "questao5": "ts-node 5th_challenge/questao5.ts"
+    "questao5": "npx tsx 5th_challenge/questao5.ts"
   },
   "keywords": [],
   "author": "",
