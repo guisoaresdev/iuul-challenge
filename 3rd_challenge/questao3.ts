@@ -1,10 +1,11 @@
-const promptzim = require('prompt-sync')();
+import promptSync from "prompt-sync";
+const promptzim = promptSync();
 
 /* FACTORY */
 class PoligonoFactory {
   static criarPoligono(vertices: Vertice[]): Poligono | undefined {
     if (vertices.length < 3) {
-      console.log("Um polígono deve ter pelo menos 3 vértices.");
+      throw new Error("Um polígono deve ter pelo menos 3 vértices.");
       return undefined;
     }
     switch (vertices.length) {
@@ -89,7 +90,7 @@ class Triangulo extends Poligono {
   }
 
   addVertice(vertice: Vertice): boolean {
-    console.log("Um triângulo não pode ter mais de 3 vértices.");
+    throw new Error("Um triângulo não pode ter mais de 3 vértices.");
     return false; // Não permite adicionar mais vértices
   }
 
@@ -271,18 +272,22 @@ function main() {
         const x = entradaX !== null ? parseFloat(entradaX) : 0;
         const y = entradaY !== null ? parseFloat(entradaY) : 0;
 
-        if (isNaN(x) || isNaN(y)) {
-          console.error(
-            "Erro: Ambas as coordenadas (X e Y) devem ser números válidos.",
+        if (
+          isNaN(x) ||
+          typeof x !== "number" ||
+          isNaN(y) ||
+          typeof y !== "number"
+        ) {
+          console.log(
+            "Ambas as coordenadas (X e Y) devem ser números válidos.",
           );
         } else {
           const novoVertice = new Vertice(x, y);
           vertices.push(novoVertice);
-          console.log("Vértice criado com sucesso:", novoVertice);
+          console.log(
+            `Vértice inserido em (${x}, ${y}) com índice ${vertices.length - 1}`,
+          );
         }
-        console.log(
-          `Vértice inserido em (${x}, ${y}) com índice ${vertices.length - 1}`,
-        );
         break;
 
       case 2:
@@ -307,7 +312,7 @@ function main() {
           const novoY = entradaNovoY !== null ? parseFloat(entradaNovoY) : 0;
 
           if (isNaN(novoX) || isNaN(novoY)) {
-            console.error(
+            console.log(
               "Erro: As novas coordenadas (X e Y) devem ser números válidos.",
             );
           } else {
@@ -563,7 +568,9 @@ function main() {
         break;
 
       case 11: // Criar um polígono genérico
-        const entradaNumVertices = promptzim("Número de vértices do polígono -> ");
+        const entradaNumVertices = promptzim(
+          "Número de vértices do polígono -> ",
+        );
         const numVertices =
           entradaNumVertices !== null ? parseInt(entradaNumVertices, 10) : null;
         const verticesPoligono = [];
@@ -578,7 +585,9 @@ function main() {
 
             // Verifica se x e y são números válidos
             if (x == null || y == null) {
-              console.log( `Os valores de X e Y devem ser números válidos. X: ${xStr}, Y: ${yStr}`);
+              console.log(
+                `Os valores de X e Y devem ser números válidos. X: ${xStr}, Y: ${yStr}`,
+              );
               i--; // Decrementa i para repetir a entrada
               break; // Interrompe o case 11
             }
@@ -642,7 +651,6 @@ function main() {
             const y = entradaInputY !== null ? parseFloat(entradaInputY) : null;
             if (x != null && y != null) {
               const vertice = new Vertice(x, y);
-
               if (poligonos[indicePoligonoAdd].addVertice(vertice)) {
                 console.log("Vértice adicionado com sucesso.");
               } else {
@@ -685,7 +693,9 @@ function main() {
         const entradaIndicePoligono1 = promptzim(
           "Índice do primeiro polígono -> ",
         );
-        const entradaIndicePoligono2 = promptzim("Índice do segundo polígono -> ");
+        const entradaIndicePoligono2 = promptzim(
+          "Índice do segundo polígono -> ",
+        );
         const indicePoligono1 =
           entradaIndicePoligono1 !== null
             ? parseInt(entradaIndicePoligono1, 10)

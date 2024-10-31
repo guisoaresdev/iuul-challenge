@@ -1,7 +1,8 @@
-const prompt = require("prompt-sync")();
+import promptSync from "prompt-sync";
+const prompt = promptSync();
 
 /* CLASSES */
-class Vertice {
+export default class Vertice {
   #x;
   #y;
 
