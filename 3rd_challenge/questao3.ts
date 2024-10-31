@@ -319,7 +319,7 @@ function main() {
         break;
 
       case 10: // Área
-        const entradaIndiceArea = promptzim("Índice do triângulo");
+        const entradaIndiceArea = promptzim("Índice do triângulo: ");
         const indiceArea =
           entradaIndiceArea !== null ? parseInt(entradaIndiceArea, 10) : null;
         if (indiceArea != null) {

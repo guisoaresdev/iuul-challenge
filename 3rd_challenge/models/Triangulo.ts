@@ -24,8 +24,8 @@ export class Triangulo extends Poligono {
 
   equals(poligono: Triangulo): boolean {
     if (!(poligono instanceof Triangulo)) return false;
-    return this.listaVertices.every((vertice, index) =>
-      vertice.equals(poligono.listaVertices[index]),
+    return this.vertices.every((vertice, index) =>
+      vertice.equals(poligono.vertices[index]),
     );
   }
 
