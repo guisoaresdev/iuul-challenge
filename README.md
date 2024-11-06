@@ -1,6 +1,6 @@
 # iuul-residence
 
-Contains all challenges from iUUL residence process
+Contém o desafio 1 do processo de residência da iUUL
 
 ## Installing
 
