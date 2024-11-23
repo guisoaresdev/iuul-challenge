@@ -1,6 +1,6 @@
 # iuul-challenge
 
-Contém o desafio 1 do processo de residência da iUUL
+Contains all programming exercises from the first challenge from iUUL software development residence program.
 
 ## Installing
 
