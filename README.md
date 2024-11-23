@@ -1,4 +1,4 @@
-# iuul-residence
+# iuul-challenge
 
 Contém o desafio 1 do processo de residência da iUUL
 
